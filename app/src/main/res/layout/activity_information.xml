@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Information">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-146dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="400dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/textView_mainname_inf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/mtd_cheese_sauce_font"
+                    android:gravity="start"
+                    android:text="Alice!"
+                    android:textSize="60sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/imageView_avt_inf"
+                    android:layout_width="300dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/baseline_image_24"
+                    android:background="@drawable/bg_avatar_frame"
+                    android:padding="15dp"
+                    android:layout_gravity="end"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView_name_inf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:text="Name"
+                android:textSize="23sp" />
+
+            <EditText
+                android:id="@+id/edit_name_inf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/custom_edittext_border"
+                android:ems="10"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:hint="Enter your name"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textView_email_inf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:text="Email"
+                android:textSize="23sp"/>
+
+            <EditText
+                android:id="@+id/edit_email_inf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/custom_edittext_border"/>
+
+            <TextView
+                android:id="@+id/textView_addr_inf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:text="Address"
+                android:textSize="23sp" />
+
+            <EditText
+                android:id="@+id/edit_addr_inf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/custom_edittext_border"
+                android:ems="10"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:hint="xxxxxxxxxxxx"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textView_avtURL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:text="Avatar URL"
+                android:textSize="23sp" />
+
+            <EditText
+                android:id="@+id/edit_avtURL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/custom_edittext_border"
+                android:ems="10"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:hint="http://xxx.xxx.xxx"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textView_descript"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"
+                android:text="Description"
+                android:textSize="23sp"
+                />
+
+            <EditText
+                android:id="@+id/editText_descript"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:background="@drawable/custom_edittext_border"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/mtd_cheese_sauce_font"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_custom"
+                    android:fontFamily="@font/mtd_cheese_sauce_font"
+                    android:text="Save"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    app:backgroundTint="@null"/>
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_custom"
+                    android:fontFamily="@font/mtd_cheese_sauce_font"
+                    android:text="Logout"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
