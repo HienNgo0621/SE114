@@ -30,6 +30,10 @@
             android:name=".Activity_Information"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="false" />
+        <activity
+            android:name=".Activity_Post"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:exported="false" />
     </application>
 
 </manifest>

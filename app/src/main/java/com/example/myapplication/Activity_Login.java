@@ -69,7 +69,8 @@ public class Activity_Login extends AppCompatActivity {
                 return;
             }
 
-            Intent intent = new Intent(Activity_Login.this, Activity_Information.class);
+            // Chuyển hướng đến trang Activity_Post
+            Intent intent = new Intent(Activity_Login.this, Activity_Post.class);
 
             if (email.equals(registeredEmail)) {
                 intent.putExtra("name", registeredName);
