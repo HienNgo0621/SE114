@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+
         <activity
             android:name=".Activity_Login"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -22,14 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Activity_Register"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:exported="false"/>
+
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="false" />
+
         <activity
             android:name=".Activity_Information"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="false" />
+
         <activity
             android:name=".Activity_Post"
             android:windowSoftInputMode="adjustResize|stateHidden"
