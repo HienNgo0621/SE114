@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.ListView;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private RecyclerView rcvFriends, rcvPosts;
+    private ListView lvPosts;
+    private RecyclerView rcvFriends;
     private FriendAdapter friendAdapter;
     private PostAdapter postAdapter; // Dùng cho bài viết
 
@@ -50,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
         rcvFriends.setAdapter(friendAdapter);
 
         // 3. Setup Posts (Bài viết cũ của bạn)
-        rcvPosts = findViewById(R.id.rcv_Posts);
-        rcvPosts.setLayoutManager(new LinearLayoutManager(this));
+        lvPosts = findViewById(R.id.lv_myposts);
 
-        // TODO: Bạn thêm code khởi tạo danh sách Post và setAdapter cho rcvPosts ở đây giống như project cũ
+        // Khởi tạo danh sách bài viết
+        List<Post> postList = new ArrayList<>();
+        postList.add(new Post("Nguyễn Văn A", "10 phút trước", "Hôm nay trời đẹp quá!", ""));
+        postAdapter = new PostAdapter(this, postList, null);
+        lvPosts.setAdapter(postAdapter);
     }
 }

@@ -6,13 +6,13 @@ public class Post implements Serializable {
     private String authorName;
     private String date;
     private String content;
-    private String avatarUrl;
+    private int imageRes;
 
     public Post(String authorName, String date, String content, String avatarUrl) {
         this.authorName = authorName;
         this.date = date;
         this.content = content;
-        this.avatarUrl = avatarUrl;
+        this.imageRes = imageRes;
     }
 
     public String getAuthorName() {
@@ -39,11 +39,11 @@ public class Post implements Serializable {
         this.content = content;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public int getAvatarUrl() {
+        return imageRes;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setAvatarUrl(int avatarUrl) {
+        this.imageRes = avatarUrl;
     }
 }

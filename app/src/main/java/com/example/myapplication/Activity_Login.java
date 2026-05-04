@@ -56,7 +56,7 @@ public class Activity_Login extends AppCompatActivity {
 
     private void setupListeners() {
         tvRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(Activity_Login.this, MainActivity.class);
+            Intent intent = new Intent(Activity_Login.this, Activity_Register.class);
             registerLauncher.launch(intent);
         });
 
@@ -69,8 +69,7 @@ public class Activity_Login extends AppCompatActivity {
                 return;
             }
 
-            // Chuyển hướng đến trang Activity_Post
-            Intent intent = new Intent(Activity_Login.this, Activity_Post.class);
+            Intent intent = new Intent(Activity_Login.this, MainActivity.class);
 
             if (email.equals(registeredEmail)) {
                 intent.putExtra("name", registeredName);
