@@ -2,13 +2,13 @@ package com.example.myapplication;
 
 public class Friend {
     private String name;
-    private int imageRes;
+    private String avtURL;
 
-    public Friend(String name, int imageRes) {
+    public Friend(String name, String avtURL) {
         this.name = name;
-        this.imageRes = imageRes;
+        this.avtURL = avtURL;
     }
 
     public String getName() { return name; }
-    public int getImageRes() { return imageRes; }
+    public String getAvtURL() { return avtURL; }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+import com.bumptech.glide.Glide;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
     private List<Friend> friendList;
@@ -25,7 +26,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         Friend friend = friendList.get(position);
         holder.tvName.setText(friend.getName());
-        holder.imgFriend.setImageResource(friend.getImageRes());
+        Glide.with(holder.itemView.getContext())
+                .load(friend.getAvtURL()) // Hoặc friend.getProfileImage() tùy bạn đặt tên
+                .placeholder(R.drawable.ic_launcher_background) // Ảnh hiển thị tạm trong lúc đang chờ tải mạng
+                .error(R.drawable.ic_launcher_background) // Ảnh hiển thị nếu link bị hỏng/lỗi
+                .into(holder.imgFriend);
     }
 
     @Override
