@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,32 +28,34 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private ListView lvPosts;
     private RecyclerView rcvFriends;
     private FriendAdapter friendAdapter;
     private PostAdapter postAdapter;
     private List<Post> postList;
+    private EditText edtPostContent;
+    private Button btnPost;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Chỉ load giao diện activity_main
         setContentView(R.layout.activity_main);
 
-        // 1. Setup Toolbar & Drawer
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        edtPostContent = findViewById(R.id.edt_post_content);
+        btnPost = findViewById(R.id.btn_post);
+        btnPost.setOnClickListener(v -> {
+            String content = edtPostContent.getText().toString().trim();
+            if (!content.isEmpty()) {
+                postList.add(0, new Post("Tôi (Bạn)", "Vừa xong", content, ""));
+                postAdapter.setPostList(postList);
+                edtPostContent.setText("");
+                Toast.makeText(this, "Đăng bài thành công!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // 2. Setup Friend Suggestions (Horizontal)
         rcvFriends = findViewById(R.id.rcvFriendSuggestions);
@@ -66,16 +70,19 @@ public class MainActivity extends AppCompatActivity {
         friendAdapter = new FriendAdapter(friends);
         rcvFriends.setAdapter(friendAdapter);
 
-        // 3. Setup Posts (Bài viết cũ của bạn)
         lvPosts = findViewById(R.id.lv_myposts);
+        postList = new ArrayList<>();
 
-        // Khởi tạo danh sách bài viết
-        List<Post> postList = new ArrayList<>();
         postList.add(new Post("Nguyễn Văn A", "10 phút trước", "Hôm nay trời đẹp quá!", ""));
+        postList.add(new Post("Trần Thị B", "2024-05-14 09:30", "Hôm nay trời đẹp quá.", ""));
+
         postAdapter = new PostAdapter(this, postList, null);
         lvPosts.setAdapter(postAdapter);
 
-        // Khởi tạo Retrofit
+        loadPostsFromApi();
+    }
+
+    private void loadPostsFromApi() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://blackntt.net:8111/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -89,15 +96,18 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Employee> employees = response.body();
-                    // TODO: Tạo một EmployeeAdapter (tương tự FriendAdapter) và truyền list employees này vào
-                    // Ví dụ: employeeAdapter = new EmployeeAdapter(employees);
-                    // rcvFriends.setAdapter(employeeAdapter);
+                    postList.clear();
+
+                    for (Employee emp : employees) {
+                        postList.add(new Post(emp.getName(), "2024-05-15", "Lương: " + emp.getSalary(), ""));
+                    }
+                    postAdapter.setPostList(postList);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Employee>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Lỗi gọi API. Đang hiển thị dữ liệu mẫu.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -112,42 +122,23 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_profile) {
-            // Chuyển sang Activity_Information (Profile)
             Intent intent = new Intent(MainActivity.this, Activity_Information.class);
             startActivity(intent);
             return true;
         }
         else if (id == R.id.menu_sort_date) {
-            sortPostsByDate();
+            Collections.sort(postList, (p1, p2) -> p2.getDate().compareToIgnoreCase(p1.getDate()));
+            postAdapter.setPostList(postList);
+            Toast.makeText(this, "Đã sắp xếp theo ngày", Toast.LENGTH_SHORT).show();
             return true;
         }
         else if (id == R.id.menu_sort_author) {
-            sortPostsByAuthor();
+            Collections.sort(postList, (p1, p2) -> p1.getAuthorName().compareToIgnoreCase(p2.getAuthorName()));
+            postAdapter.setPostList(postList);
+            Toast.makeText(this, "Đã sắp xếp theo tên tác giả", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void sortPostsByDate() {
-        if (postList != null && !postList.isEmpty()) {
-            Collections.sort(postList, (p1, p2) -> {
-                if (p1.getDate() == null || p2.getDate() == null) return 0;
-                return p2.getDate().compareTo(p1.getDate()); // Mới nhất lên đầu
-            });
-            postAdapter.setPostList(postList);
-            Toast.makeText(this, "Sorted by date", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void sortPostsByAuthor() {
-        if (postList != null && !postList.isEmpty()) {
-            Collections.sort(postList, (p1, p2) -> {
-                if (p1.getAuthorName() == null || p2.getAuthorName() == null) return 0;
-                return p1.getAuthorName().compareToIgnoreCase(p2.getAuthorName());
-            });
-            postAdapter.setPostList(postList);
-            Toast.makeText(this, "Sorted by author", Toast.LENGTH_SHORT).show();
-        }
     }
 }

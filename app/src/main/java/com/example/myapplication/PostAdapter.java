@@ -60,12 +60,7 @@ public class PostAdapter extends BaseAdapter {
         tvContent.setText(post.getContent());
 
         if (post.getAvatarUrl() != null && !post.getAvatarUrl().isEmpty()) {
-            Glide.with(context)
-                    .load(post.getAvatarUrl())
-                    .placeholder(R.drawable.baseline_image_24)
-                    .error(R.drawable.baseline_image_24)
-                    .circleCrop()
-                    .into(imgAvatar);
+            Glide.with(context).load(post.getAvatarUrl()).circleCrop().into(imgAvatar);
         } else {
             imgAvatar.setImageResource(R.drawable.baseline_image_24);
         }
