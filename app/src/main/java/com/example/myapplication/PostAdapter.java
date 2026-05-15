@@ -81,4 +81,9 @@ public class PostAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public void setPostList(List<Post> newList) {
+        this.postList = newList;
+        notifyDataSetChanged();
+    }
 }

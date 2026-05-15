@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("kotlin-kapt")
 }
 
 android {
@@ -40,7 +39,7 @@ dependencies {
 
     // Thư viện Glide để load ảnh
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")

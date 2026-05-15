@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvPosts;
     private RecyclerView rcvFriends;
     private FriendAdapter friendAdapter;
-    private PostAdapter postAdapter; // Dùng cho bài viết
+    private PostAdapter postAdapter;
+    private List<Post> postList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi tạo Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://blackntt.net:88")
+                .baseUrl("http://blackntt.net:8111/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -93,5 +100,54 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_profile) {
+            // Chuyển sang Activity_Information (Profile)
+            Intent intent = new Intent(MainActivity.this, Activity_Information.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.menu_sort_date) {
+            sortPostsByDate();
+            return true;
+        }
+        else if (id == R.id.menu_sort_author) {
+            sortPostsByAuthor();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void sortPostsByDate() {
+        if (postList != null && !postList.isEmpty()) {
+            Collections.sort(postList, (p1, p2) -> {
+                if (p1.getDate() == null || p2.getDate() == null) return 0;
+                return p2.getDate().compareTo(p1.getDate()); // Mới nhất lên đầu
+            });
+            postAdapter.setPostList(postList);
+            Toast.makeText(this, "Sorted by date", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void sortPostsByAuthor() {
+        if (postList != null && !postList.isEmpty()) {
+            Collections.sort(postList, (p1, p2) -> {
+                if (p1.getAuthorName() == null || p2.getAuthorName() == null) return 0;
+                return p1.getAuthorName().compareToIgnoreCase(p2.getAuthorName());
+            });
+            postAdapter.setPostList(postList);
+            Toast.makeText(this, "Sorted by author", Toast.LENGTH_SHORT).show();
+        }
     }
 }
